@@ -7,7 +7,7 @@ import pprint
 
 data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/生理アイソトープ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book4.csv"
-# data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
+data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book5.csv"
 
 df = pd.read_csv(data_path)
@@ -134,6 +134,7 @@ plt.show()
 standardized_cAMP = {}
 for key in cAMP:
     standardized_cAMP[key] = round(cAMP[key] / sum1 * 100, 4)
+
 # pprint.pprint(standardized_cAMP)
 
 
