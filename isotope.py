@@ -5,8 +5,8 @@ import japanize_matplotlib
 from scipy.stats import linregress
 import pprint
 
-# data_path = "/Users/kotaro/Desktop/生理データ/アイソトープ/生理アイソトープ.csv"
-data_path = "/Users/kotaro/Desktop/生理データ/アイソトープ/Book5.csv"
+data_path = "/Users/kotaro/Desktop/生理データ/アイソトープ/生理アイソトープ.csv"
+# data_path = "/Users/kotaro/Desktop/生理データ/アイソトープ/Book4.csv"
 # data_path = "/Users/kotaro/Desktop/生理データ/アイソトープ/アイソトープ2022データ.csv"
 
 df = pd.read_csv(data_path)
@@ -119,7 +119,7 @@ for i in df_samples["label"].unique():
 
 plt.bar([i for i in range(len(cAMP_display))], cAMP_display)
 # plt.xticks([i for i in range(len(cAMP_display))], ["No." + str(2*i+1) + ","+ str(2*i+2) for i in range(len(cAMP_display))])
-plt.xticks([i for i in range(len(cAMP_display))], ["PBS","CT:0.2","CT:2","CT:20","CT:200","(CT:2)*5","(CT:200)*10"])
+plt.xticks([i for i in range(len(cAMP_display))], ["PBS","CT0.2","CT2","CT20","CT200","(CT2)*5","(CT200)*10"])
 
 plt.xlabel("サンプル番号")
 plt.ylabel("cAMP濃度 (pmol/mL)")
