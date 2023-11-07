@@ -7,7 +7,7 @@ import pprint
 
 data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/生理アイソトープ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book4.csv"
-data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
+# data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book5.csv"
 
 df = pd.read_csv(data_path)
@@ -80,6 +80,7 @@ for i in df_kenryosen["label"].unique():
 kenryosen_concentrations_log = np.log(np.array(kenryosen_concentrations))
 slope, intercept, r_value, p_value, std_err = linregress(kenryosen_concentrations_log, kenryosen_values)
 print(slope, intercept, r_value, p_value, std_err)
+
 lin_space = np.linspace(10 ** (-5), 1000, 100)
 plt.plot(lin_space, np.log(lin_space) * slope + intercept, color="red")
 plt.scatter(kenryosen_concentrations, kenryosen_values)
