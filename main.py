@@ -129,7 +129,7 @@ print(df)
 
 fig = plt.figure(figsize=(6.4 * 1.2, 4.8 * 1.2))
 plt.title("       TNF$\\alpha$の濃度と細胞核内のNF$\\kappa$Bの蛍光輝度の関係", fontsize=16)
-sns.violinplot(data=df, x='category', y='value', inner="quartile", color="0.90")
+sns.violinplot(data=df, x='category', y='value', inner="quartile", color="1",edgecolor="black")
 sns.swarmplot(data=df, x='category', y='value', hue='category', palette=["green", "orange", "skyblue"])
 
 plt.xlabel("TNF$\\alpha$の濃度(ng/mL)", fontsize=15)

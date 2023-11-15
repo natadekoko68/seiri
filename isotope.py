@@ -3,16 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import japanize_matplotlib
 from scipy.stats import linregress
+import sys
 
 data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/生理アイソトープ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book4.csv"
-# data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
+data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/アイソトープ2022データ.csv"
 # data_path = "/Users/kotaro/PycharmProjects/生理/生理データ/アイソトープ/Book5.csv"
+# data_path = "/Users/kotaro/Desktop/Results.csv"
 
 df = pd.read_csv(data_path)
+# print(df.columns)
+# df = df.drop([" ", "Area", "Min", "Max"], axis=1)
+
 
 df = df.drop(["Unnamed: 0", "Area", "Min", "Max"], axis=1)
-print(df)
+# print(df)
 
 content_labels = [
     "count_sum",
@@ -67,6 +72,7 @@ df.index = np.arange(1, len(df) + 1)
 # print(df)
 
 df_kenryosen = df[df["label"].str.contains("standard")]
+print(df_kenryosen)
 
 kenryosen_concentrations = [80 / (2 ** (7 - i)) for i in range(8)]
 # print(kenryosen_concentrations)
@@ -103,9 +109,15 @@ plt.show()
 df.loc[df["label"].str.contains("sample"), "cAMP_concentrations"] = np.e ** (
         (df.loc[df["label"].str.contains("sample"), "b_t"] - intercept) / slope)
 
+# df_kenryosen.to_csv("/Users/kotaro/Desktop/検量線.csv")
+
 # print(df)
 
 df_samples = df[df["label"].str.contains("sample")]
+
+df_samples.loc[df_samples["label"]=="sample6","cAMP_concentrations"] *= 5
+df_samples.loc[df_samples["label"]=="sample7","cAMP_concentrations"] *= 10
+print(df_samples)
 # print(df_samples)
 cAMP = {}
 cAMP_display = []
@@ -116,13 +128,15 @@ for i in df_samples["label"].unique():
     sum1 += df_samples[df_samples["label"] == i]["cAMP_concentrations"].mean()
 # pprint.pprint(cAMP)
 
+# df_samples.to_csv("/Users/kotaro/Desktop/サンプル.csv")
+#
 
 plt.bar([i for i in range(len(cAMP_display))], cAMP_display)
 # plt.xticks([i for i in range(len(cAMP_display))], ["No." + str(2*i+1) + ","+ str(2*i+2) for i in range(len(
 # cAMP_display))])
-plt.xticks([i for i in range(len(cAMP_display))], ["PBS", "CT0.2", "CT2", "CT20", "CT200", "(CT2)*5", "(CT200)*10"])
+plt.xticks([i for i in range(len(cAMP_display))], ["Non(Ctr)", "0.2$\mu$g/ml", "2$\mu$g/ml", "20$\mu$g/ml", "200$\mu$g/ml", "2$\mu$g/ml\n(5倍希釈\nを補正)", "200$\mu$g/ml\n(10倍希釈\nを補正)"])
 
-plt.xlabel("サンプル番号")
+plt.xlabel("サンプル")
 plt.ylabel("cAMP濃度 (pmol/mL)")
 plt.title("各サンプルのcAMP濃度")
 plt.tight_layout()
@@ -150,6 +164,7 @@ import pytab as pt
 
 df = pd.read_csv(data_path)
 df = df.drop(["Unnamed: 0"], axis=1)
+# df = df.drop([" "], axis=1)
 # df = df.rename(columns={"Unnamed: 0":"N0"})
 rows = [i for i in range(1, 37)]
 pt.table(
